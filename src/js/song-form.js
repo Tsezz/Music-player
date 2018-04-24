@@ -87,6 +87,11 @@
                 this.model.data = data
                 this.view.render(this.model.data)
             })
+            window.eventHub.on('select', (data)=>{
+                this.model.data =data
+                this.view.render(this.model.data)
+
+            })
         },
         bindEvents() {
             this.view.$el.on('submit', 'form', (e) => {
@@ -97,7 +102,6 @@
                     data[string] = this.view.$el.find(`[name="${string}"]`).val()
                 })
                 this.model.create(data)
-                // console.log(1)
                     .then(() => {
                         this.view.reset()
                         let string = JSON.stringify(this.model.data)
