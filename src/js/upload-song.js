@@ -91,7 +91,7 @@
                         var response = JSON.parse(info.response)
                         var sourceLink = domain + "/" + encodeURIComponent(response.key)
                         uploadStatus.textContent = sourceLink + ' ' + response.key
-                        window.eventHub.emit('upload',{
+                        window.eventHub.emit('new',{
                             url: sourceLink,
                             name:response.key
                         })

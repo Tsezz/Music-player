@@ -27,7 +27,7 @@
                 .siblings('.active').removeClass('active')
         },
         clearActive(){
-            $(this.el).find('.active').removeClass('actvie')
+            $(view.el).find('.active').removeClass('actvie')
         }
     }
     let model = {
@@ -80,12 +80,16 @@
             })
         },
         bindEventHub(){
-            window.eventHub.on('upload',()=>{
-                this.view.clearActive()
-            })
+            // window.eventHub.on('upload',()=>{
+            //     this.view.clearActive()
+            // })
             window.eventHub.on('create', (songData)=>{
                 this.model.data.songs.push(songData)
                 this.view.render(this.model.data)
+            })
+            window.eventHub.on('new',()=>{
+                // this.view.clearActive()
+                $("#songList-container>ul>li.active").removeClass("active")
             })
         }
     }
