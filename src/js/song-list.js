@@ -28,6 +28,19 @@
     let model = {
         data: {
             songs: [ ]
+        },
+        find(){
+            // 从 LeanCloud里查询所有歌曲信息
+            var query = new AV.Query('Song')
+            return query.find().then((songs)=>{
+                this.data.songs = songs.map((song)=>{
+                    return {
+                        id: song.id,
+                        ...song.attributes
+                    }
+                })
+                return this.data.songs
+            })
         }
     }
     let controller = {
@@ -40,6 +53,9 @@
             })
             window.eventHub.on('create', (songData)=>{
                 this.model.data.songs.push(songData)
+                this.view.render(this.model.data)
+            })
+            this.model.find().then(()=>{
                 this.view.render(this.model.data)
             })
         }
