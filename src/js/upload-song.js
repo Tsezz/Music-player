@@ -73,6 +73,7 @@
                     },
                     'BeforeUpload': function (up, file) {
                         // 每个文件上传前，处理相关的事情
+                        window.eventHub.emit('beforeUpload')
                     },
                     'UploadProgress': function (up, file) {
                         // 每个文件上传时，处理相关的事情
@@ -96,6 +97,7 @@
                             name:response.key
                         })
                         // var sourceLink = domain +"/"+ res.key; 获取上传成功后的文件的Url
+                        window.eventHub.emit('afterUpload')
                     },
                     'Error': function (up, err, errTip) {
                         //上传出错时，处理相关的事情
