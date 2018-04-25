@@ -1,3 +1,4 @@
+window.x = 'up';
 {
     let view = {
         el: '.uploadArea',
@@ -16,7 +17,11 @@
             return $(this.el).find(selector)[0]
         }
     }
-    let model ={}
+    let model ={
+        data: {
+            status: 'up'
+        }
+    }
     let controller ={
         init(view,model){
             this.view = view
@@ -74,7 +79,12 @@
                     'BeforeUpload': function (up, file) {
                         // 每个文件上传前，处理相关的事情
                         window.eventHub.emit('beforeUpload')
-                    },
+                        if(this.data.status === 'lock'){
+                            return false
+                        }else{
+                            window.x = 'lock'
+                        }
+                    }.bind(model),
                     'UploadProgress': function (up, file) {
                         // 每个文件上传时，处理相关的事情
                         // uploadStatus.textContent = "上传中"
@@ -98,7 +108,8 @@
                         })
                         // var sourceLink = domain +"/"+ res.key; 获取上传成功后的文件的Url
                         window.eventHub.emit('afterUpload')
-                    },
+                        this.data.status = 'up'
+                    }.bind(model),
                     'Error': function (up, err, errTip) {
                         //上传出错时，处理相关的事情
                     },
