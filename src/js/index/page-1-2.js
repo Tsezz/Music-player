@@ -52,7 +52,7 @@
             this.view = view
             this.view.init()
             this.model = model
-            this.bindEventHub()
+            // this.bindEventHub()
             this.model.find().then(() => {
                 this.view.render(this.model.data)
             })
