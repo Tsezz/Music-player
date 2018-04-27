@@ -3,11 +3,27 @@
 
 @keyframes circle{0% {transform: rotate(0deg); } 100% {transform: rotate(360deg); } }
 
-.page{display: flex; flex-direction: column; height: 100vh;
-	background: transparent url(http://p3.music.126.net/z4p2xss2a50qNHe6TLFdoA==/2425522650910827.jpg) no-repeat center;
-	background-size: cover;
+#app{
+	display: flex; flex-direction: column; height: 100vh;
+	position: relative;
+	
 }
-
+.page{
+	align-items:center;
+	display: flex; flex-direction: column; height: 100vh; width: 100%;
+	position: absolute;
+	
+}
+.background{
+	/* display: flex;
+	 flex-direction: column;  */
+	 height: 100vh;
+	background: transparent url() no-repeat center;
+	background-size: cover;
+	filter: blur(20px);
+	position: relative;
+	width: 100wh;
+}
 .disc-container{position: relative; }
 .disc-container .icon-wrapper{position: absolute; z-index: 1; display: flex; 
 	justify-content: center; align-items: center;
@@ -15,7 +31,7 @@
 	border-radius: 50%; background: rgba(0,0,0,0.5);
 }
 .disc-container .icon {width: 10vw; fill: white;}
-.disc-container .pointer{width: 24vw; position: absolute; left: 45vw; }
+.disc-container .pointer{width: 24vw; position: absolute; left: 35vw; }
 .disc-container .disc{display: flex; justify-content: center; align-items: center; margin-top: 18vw; }
 .disc-container .ring{width: 72vw; } 
 .disc-container .light{width: 72vw; position: absolute; }

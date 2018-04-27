@@ -1,7 +1,7 @@
 {
     let view = {
-        el:'section.songs',
-        template:`
+        el: 'section.songs',
+        template: `
             <li>
                 <h3>{song.name}</h3>
                  <p>
@@ -17,20 +17,18 @@
                 </a>
             </li>
         `,
-        init(){
+        init() {
             this.$el = $(this.el)
         },
-        render(data){
-            let {songs} = data
-            songs.map((song)=>{
-                console.log(song)
+        render(data) {
+            let { songs } = data
+            songs.map((song) => {
                 let $li = $(this.template
-                    .replace('{song.name}', song.name)                  
+                    .replace('{song.name}', song.name)
                     .replace('{song.singer}', song.singer)
                     .replace('{song.id}', song.id),
-                    console.log(song.name)
                 )
-                    this.$el.find('ol.list').append($li)
+                this.$el.find('ol.list').append($li)
             })
         }
     }
@@ -38,26 +36,33 @@
         data: {
             songs: []
         },
-        find(){
+        find() {
             // 从 LeanCloud里查询所有歌曲信息
             var query = new AV.Query('Song')
-            return query.find().then((songs)=>{
-                this.data.songs = songs.map((song)=>{
-                    return {id: song.id, ...song.attributes}
+            return query.find().then((songs) => {
+                this.data.songs = songs.map((song) => {
+                    return { id: song.id, ...song.attributes }
                 })
                 return this.data.songs
             })
         }
     }
     let contorller = {
-        init(view,model){
-           this.view = view
-           this.view.init()
-           this.model = model 
-           this.model.find().then(()=>{
-               this.view.render(this.model.data)
-           })
-        }
+        init(view, model) {
+            this.view = view
+            this.view.init()
+            this.model = model
+            this.bindEventHub()
+            this.model.find().then(() => {
+                this.view.render(this.model.data)
+            })
+        },
+        // bindEventHub() {
+        //     $(this.view.el).on('click', '.list > li', () => {
+        //         console.log("1")
+        //         window.eventHub.emit('play')
+        //     })
+        // }
     }
-    contorller.init(view,model)
+    contorller.init(view, model)
 }
